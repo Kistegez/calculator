@@ -7,13 +7,13 @@ function Calculator() {
 
   // Event handlers for the buttons
   const handleNumberClick = (event) => {
-
+    setExpression(expression + event.currentTarget.value);
   }
   const handleOperatorClick = (event) => {
-
+    setExpression(expression + event.currentTarget.value);
   }
   const handleClearClick = () => {
-
+    setExpression("");
   }
   const handleEqualClick = () => {
 
