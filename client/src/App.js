@@ -16,7 +16,11 @@ function Calculator() {
     setExpression("");
   }
   const handleEqualClick = () => {
-
+    try {
+      setExpression(eval(expression).toString());
+    } catch (e) {
+      setExpression("Error");
+    }
   }
 
   return (
