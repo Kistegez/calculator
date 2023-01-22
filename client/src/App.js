@@ -50,7 +50,15 @@ function Calculator() {
         return digits
     }
 
-  return (
+    function saveToMemory() {
+
+    }
+
+    function readFromMemory() {
+
+    }
+
+    return (
       <div>
           <center> <h1> Simple React Calculator</h1></center>
 
@@ -61,6 +69,10 @@ function Calculator() {
               </div>
 
               <div>
+                  <div className='memory'>
+                      <button onClick={()=>{saveToMemory()}}>MEM</button>
+                      <button onClick={()=>{readFromMemory()}}>RM</button>
+                  </div>
                   <div className='ops'>
 
                       <button onClick={()=>{handleCalcClick('/')}} >/</button>
@@ -69,6 +81,8 @@ function Calculator() {
                       <button onClick={()=>{handleCalcClick('-')}}>-</button>
                       <button onClick={handleClearClick}> <img  width={40} height={40} src="https://cdn-icons-png.flaticon.com/512/159/159805.png" /></button>
                   </div>
+
+
                   <div className='dig'>
 
                       {createDigits()}
