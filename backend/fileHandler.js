@@ -4,7 +4,7 @@ const storedNumberFile = 'storedNumber.txt';
 
 const readNumber = () => {
     try {
-        return fs.readFileSync(storedNumberFile, 'utf-8');
+        return parseFloat(fs.readFileSync(storedNumberFile, 'utf-8'));
     } catch (err) {
         if (err.code === 'ENOENT') {
             return null;

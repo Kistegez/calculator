@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 
 app.post('/store', (req, res) => {
     const number = req.body.number;
-    if (!isValidNumber(number)) {
+    if (!isValidDouble(number)) {
         res.status(400).json({ message: 'Invalid number' });
     } else {
         writeNumber(number);
