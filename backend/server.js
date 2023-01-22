@@ -10,8 +10,13 @@ app.get('/', (req, res) => {
 });
 
 app.post('/store', (req, res) => {
-    fs.writeFileSync('stored_number.txt', storedNumber);
-    res.json({ message: 'Number stored successfully' });
+    const number = req.body.number;
+    if (isNaN(number) || number == null) {
+        res.status(400).json({ message: 'Invalid number' });
+    } else {
+        fs.writeFileSync('storedNumber.txt', number);
+        res.json({message: 'Number stored successfully'});
+    }
 });
 
 app.get('/retrieve', (req, res) =>{
