@@ -21,14 +21,26 @@ function Calculator() {
     }
 
   // Event handlers for the buttons
-  const handleNumberClick = (event) => {
-      setCalculation(calculation + event.currentTarget.value);
+  const handleCalcClick = (event) => {
+      if(
+          actions.includes(value) & calculation === '' ||
+          actions.includes(value) & actions.includes(calculation.slice(-1))
+      ){
+          return
+      }
+      setCalculation(calculation+value)
+
+      if (!actions.includes(value)){
+          setOutput(eval(calculation+value).toString())
+      }
   }
-  const handleOperatorClick = (event) => {
-      setCalculation(calculation + event.currentTarget.value);
-  }
+
   const handleClearClick = () => {
-      setCalculation("");
+      if(calculation === ''){
+          return
+      }
+      const value=calculation.slice(0,-1)
+      setCalculation(value)
   }
   const handleEqualClick = () => {
     try {
@@ -51,18 +63,18 @@ function Calculator() {
               <div>
                   <div className='ops'>
 
-                      <button onClick={()=>{handleOperatorClick('/')}} >/</button>
-                      <button onClick={()=>{handleOperatorClick('*')}}>*</button>
-                      <button onClick={()=>{handleOperatorClick('+')}}>+</button>
-                      <button onClick={()=>{handleOperatorClick('-')}}>-</button>
+                      <button onClick={()=>{handleCalcClick('/')}} >/</button>
+                      <button onClick={()=>{handleCalcClick('*')}}>*</button>
+                      <button onClick={()=>{handleCalcClick('+')}}>+</button>
+                      <button onClick={()=>{handleCalcClick('-')}}>-</button>
                       <button onClick={handleClearClick}> <img  width={40} height={40} src="https://cdn-icons-png.flaticon.com/512/159/159805.png" /></button>
                   </div>
                   <div className='dig'>
 
                       {createDigits()}
 
-                      <button onClick={()=>{handleNumberClick('.')}}>.</button>
-                      <button onClick={()=>{handleNumberClick('0')}}>0</button>
+                      <button onClick={()=>{handleCalcClick('.')}}>.</button>
+                      <button onClick={()=>{handleCalcClick('0')}}>0</button>
                       <button onClick={handleEqualClick}>=</button>
                   </div>
               </div>
