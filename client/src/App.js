@@ -21,7 +21,7 @@ function Calculator() {
     }
 
   // Event handlers for the buttons
-  const handleCalcClick = (event) => {
+  const handleCalcClick = (value) => {
       if(
           actions.includes(value) & calculation === '' ||
           actions.includes(value) & actions.includes(calculation.slice(-1))
