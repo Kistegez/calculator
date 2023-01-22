@@ -2,19 +2,20 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
+const fs = require('fs');
 
-let storedNumber = 0;
 
 app.get('/', (req, res) => {
     res.send('chalculator');
 });
 
 app.post('/store', (req, res) => {
-    storedNumber = req.body.number;
+    fs.writeFileSync('stored_number.txt', storedNumber);
     res.json({ message: 'Number stored successfully' });
 });
 
 app.get('/retrieve', (req, res) =>{
+    let storedNumber = parseInt(fs.readFileSync('storedNumber.txt').toString());
     res.json({number: storedNumber});
 })
 
