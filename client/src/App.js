@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Grid, Button } from '@material-ui/core';
-
+import './App.css';
 function Calculator() {
 
 
@@ -9,16 +8,6 @@ function Calculator() {
     const [output, setOutput]=useState('')
     const actions = ['/', '*', '+', '-', '.']
 
-    const createDigits =()=>{
-        const digits=[]
-
-        for (let i=1;i<10; i++){
-            digits.push(
-                <button onClick={()=>handleNumberClick(i.toString())} key={i}>{i}</button>
-            )
-        }
-        return digits
-    }
 
   // Event handlers for the buttons
   const handleCalcClick = (value) => {
@@ -49,6 +38,17 @@ function Calculator() {
         setCalculation("Error");
     }
   }
+
+    const createDigits =()=>{
+        const digits=[]
+
+        for (let i=1;i<10; i++){
+            digits.push(
+                <button onClick={()=>handleCalcClick(i.toString())} key={i}>{i}</button>
+            )
+        }
+        return digits
+    }
 
   return (
       <div>
