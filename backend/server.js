@@ -15,8 +15,20 @@ app.post('/store', (req, res) => {
 });
 
 app.get('/retrieve', (req, res) =>{
-    let storedNumber = parseInt(fs.readFileSync('storedNumber.txt').toString());
-    res.json({number: storedNumber});
+    try {
+        const storedNumber = fs.readFileSync('storedNumber.txt', 'utf-8');
+        if(!storedNumber){
+            res.json({ message: "No number stored yet"});
+        }else{
+            res.json({ number: parseInt(storedNumber) });
+        }
+    } catch (err) {
+        if (err.code === 'ENOENT') {
+            res.json({ message: "No number stored yet" });
+        } else {
+            res.json({ message: "Error occurred", error: err });
+        }
+    }
 })
 
 app.listen(8080, () => {
