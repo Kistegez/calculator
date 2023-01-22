@@ -1,6 +1,9 @@
-import {Grid, Button } from '@material-ui/core';
+import React, { useState } from 'react';
+import { TextField, Grid, Button } from '@material-ui/core';
 
 function Calculator() {
+  // State to hold the current expression
+  const [expression, setExpression] = useState("");
 
   // Event handlers for the buttons
   const handleNumberClick = (event) => {
@@ -18,6 +21,9 @@ function Calculator() {
 
   return (
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid item xs={12}>
+            <TextField key={expression} value={expression || ''} disabled={true} fullWidth={true}/>
+        </Grid>
         <Grid item xs={4}>
           <Button value="1" onClick={handleNumberClick}>1</Button>
         </Grid>
