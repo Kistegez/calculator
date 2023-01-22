@@ -25,7 +25,12 @@ app.get('/retrieve', (req, res) =>{
         if(!storedNumber){
             res.json({ message: "No number stored yet"});
         }else{
-            res.json({ number: parseInt(storedNumber) });
+            const number = parseInt(storedNumber, 10);
+            if (Number.isInteger(number)) {
+                res.json({ number });
+            } else {
+                res.status(400).json({ message: 'Invalid number' });
+            }
         }
     } catch (err) {
         if (err.code === 'ENOENT') {
