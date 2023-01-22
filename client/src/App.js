@@ -2,80 +2,75 @@ import React, { useState } from 'react';
 import { TextField, Grid, Button } from '@material-ui/core';
 
 function Calculator() {
+
+
   // State to hold the current expression
-  const [expression, setExpression] = useState("");
+    const [calculation, setCalculation]=useState('')
+    const [output, setOutput]=useState('')
+    const actions = ['/', '*', '+', '-', '.']
+
+    const createDigits =()=>{
+        const digits=[]
+
+        for (let i=1;i<10; i++){
+            digits.push(
+                <button onClick={()=>handleNumberClick(i.toString())} key={i}>{i}</button>
+            )
+        }
+        return digits
+    }
 
   // Event handlers for the buttons
   const handleNumberClick = (event) => {
-    setExpression(expression + event.currentTarget.value);
+      setCalculation(calculation + event.currentTarget.value);
   }
   const handleOperatorClick = (event) => {
-    setExpression(expression + event.currentTarget.value);
+      setCalculation(calculation + event.currentTarget.value);
   }
   const handleClearClick = () => {
-    setExpression("");
+      setCalculation("");
   }
   const handleEqualClick = () => {
     try {
-      setExpression(eval(expression).toString());
+        setCalculation(eval(calculation).toString());
     } catch (e) {
-      setExpression("Error");
+        setCalculation("Error");
     }
   }
 
   return (
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={12}>
-            <TextField key={expression} value={expression || ''} disabled={true} fullWidth={true}/>
-        </Grid>
-        <Grid item xs={4}>
-          <Button value="1" onClick={handleNumberClick}>1</Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Button value="2" onClick={handleNumberClick}>2</Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Button value="3" onClick={handleNumberClick}>3</Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Button value="4" onClick={handleNumberClick}>4</Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Button value="5" onClick={handleNumberClick}>5</Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Button value="6" onClick={handleNumberClick}>6</Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Button value="7" onClick={handleNumberClick}>7</Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Button value="8" onClick={handleNumberClick}>8</Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Button value="9" onClick={handleNumberClick}>9</Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Button onClick={handleClearClick}>C</Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Button value="0" onClick={handleNumberClick}>0</Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Button onClick={handleEqualClick}>=</Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Button value="+" onClick={handleOperatorClick}>+</Button>
-        </Grid>
-          <Grid item xs={4}>
-              <Button value="-" onClick={handleOperatorClick}>-</Button>
-          </Grid>
-          <Grid item xs={4}>
-              <Button value="*" onClick={handleOperatorClick}>*</Button>
-          </Grid>
-          <Grid item xs={4}>
-              <Button value="÷" onClick={handleOperatorClick}>÷</Button>
-          </Grid>
-      </Grid>)}
+      <div>
+          <center> <h1> Simple React Calculator</h1></center>
+
+          <div className="calc-grid">
+              <div className='output'>
+                  {calculation||'0'}
+                  {output ? <span className="preRes">{output}</span>:''}
+              </div>
+
+              <div>
+                  <div className='ops'>
+
+                      <button onClick={()=>{handleOperatorClick('/')}} >/</button>
+                      <button onClick={()=>{handleOperatorClick('*')}}>*</button>
+                      <button onClick={()=>{handleOperatorClick('+')}}>+</button>
+                      <button onClick={()=>{handleOperatorClick('-')}}>-</button>
+                      <button onClick={handleClearClick}> <img  width={40} height={40} src="https://cdn-icons-png.flaticon.com/512/159/159805.png" /></button>
+                  </div>
+                  <div className='dig'>
+
+                      {createDigits()}
+
+                      <button onClick={()=>{handleNumberClick('.')}}>.</button>
+                      <button onClick={()=>{handleNumberClick('0')}}>0</button>
+                      <button onClick={handleEqualClick}>=</button>
+                  </div>
+              </div>
+
+
+          </div>
+      </div>
+  );}
 
 export default Calculator;
+
