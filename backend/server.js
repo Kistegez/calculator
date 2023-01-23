@@ -1,9 +1,15 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const { readNumber, writeNumber } = require('./fileHandler');
 const { isValidNumber } = require('./validator');
 
 const app = express();
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
@@ -13,7 +19,7 @@ app.get('/', (req, res) => {
 app.post('/store', (req, res) => {
     const number = req.body.number;
     if (!isValidDouble(number)) {
-        res.status(400).json({ message: 'Invalid number' });
+        res.status(400).json({ message: "Invalid number" });
     } else {
         writeNumber(number);
         res.json({ message: 'Number stored successfully' });
