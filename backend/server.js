@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { readNumber, writeNumber } = require('./fileHandler');
-const { isValidNumber } = require('./validator');
+const { isValidDouble } = require('./validator');
 
 const app = express();
 app.use(cors({
