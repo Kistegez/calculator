@@ -53,7 +53,7 @@ function Calculator() {
     function saveToMemory() {
         postData('http://localhost:8080/store', calculation)
             .then((data) => {
-                console.log(data);
+                console.log('Number successfully saved to the server.');
             })
             .catch((error) => {
                 console.error(error);
@@ -63,7 +63,7 @@ function Calculator() {
     function readFromMemory() {
         getData('http://localhost:8080/retrieve')
             .then((data) => {
-                console.log(data);
+                setOutput(data.number);
             })
             .catch((error) => {
                 console.error(error);
