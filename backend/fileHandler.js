@@ -15,7 +15,7 @@ const readNumber = () => {
 };
 
 const writeNumber = (number) => {
-    fs.writeFileSync(storedNumberFile, number);
+    fs.writeFileSync(storedNumberFile, number.toString());
 };
 
 module.exports = { readNumber, writeNumber };
