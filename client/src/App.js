@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
+import {getData, postData} from "./connection";
+
 function Calculator() {
 
 
@@ -11,10 +13,8 @@ function Calculator() {
 
   // Event handlers for the buttons
   const handleCalcClick = (value) => {
-      if(
-          actions.includes(value) & calculation === '' ||
-          actions.includes(value) & actions.includes(calculation.slice(-1))
-      ){
+      if(actions.includes(value) & calculation === '' ||
+          actions.includes(value) & actions.includes(calculation.slice(-1))) {
           return
       }
       setCalculation(calculation+value)
@@ -51,11 +51,23 @@ function Calculator() {
     }
 
     function saveToMemory() {
-
+        postData('http://localhost:8080/store', calculation)
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     function readFromMemory() {
-
+        getData('http://localhost:8080/retrieve')
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     return (
@@ -67,33 +79,25 @@ function Calculator() {
                   {calculation||'0'}
                   {output ? <span className="preRes">{output}</span>:''}
               </div>
-
               <div>
                   <div className='memory'>
-                      <button onClick={()=>{saveToMemory()}}>MEM</button>
-                      <button onClick={()=>{readFromMemory()}}>RM</button>
+                      <button onClick={()=>{saveToMemory()}}>Save</button>
+                      <button onClick={()=>{readFromMemory()}}>Memo</button>
                   </div>
                   <div className='ops'>
-
                       <button onClick={()=>{handleCalcClick('/')}} >/</button>
                       <button onClick={()=>{handleCalcClick('*')}}>*</button>
                       <button onClick={()=>{handleCalcClick('+')}}>+</button>
                       <button onClick={()=>{handleCalcClick('-')}}>-</button>
                       <button onClick={handleClearClick}> <img  width={40} height={40} src="https://cdn-icons-png.flaticon.com/512/159/159805.png" /></button>
                   </div>
-
-
                   <div className='dig'>
-
                       {createDigits()}
-
                       <button onClick={()=>{handleCalcClick('.')}}>.</button>
                       <button onClick={()=>{handleCalcClick('0')}}>0</button>
                       <button onClick={handleEqualClick}>=</button>
                   </div>
               </div>
-
-
           </div>
       </div>
   );}
